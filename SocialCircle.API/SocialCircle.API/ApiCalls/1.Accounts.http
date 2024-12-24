@@ -8,7 +8,15 @@ Content-type: application/json
   
 }
 
-### Log in
+# ### Log in
+# Post {{host}}/api/Accounts/Login
+# Content-type: application/json
+
+# { 
+#   "email": "string",
+#   "password": "string"
+# } 
+
 Post {{host}}/api/Accounts/Login
 Content-type: application/json
 
@@ -16,3 +24,12 @@ Content-type: application/json
   "email": "string",
   "password": "string"
 } 
+
+
+Post{{host}}/api/Accounts/loginn
+Content-type:application/json
+{
+    public int UserId { get; set; }
+    public string UserName { get; set; }
+    public string description {  get; set; }
+}

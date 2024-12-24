@@ -1,6 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using SocialCircle.API.ApplicationContact;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var Connection = builder.Configuration.GetConnectionString("Dbsql");
+builder.Services.AddDbContext<SocialCircleContext>(option => option.UseSqlServer(Connection));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
