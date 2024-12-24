@@ -13,7 +13,7 @@ public class AccountsController : ControllerBase
         return Ok(
             new
             {
-                Message = "User registger succefully"
+                Message = "User register succefully"
             });
         // TODO: Register user
         return Accepted();
