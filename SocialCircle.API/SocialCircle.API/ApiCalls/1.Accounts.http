@@ -5,9 +5,9 @@ Post {{host}}/api/Accounts/Register
 Content-type: application/json
 
 { 
-  "Name" : "string",
-   "email": "string",
-  "password": "string"
+  "Name" : "Ikhtisham",
+   "email": "Ali",
+  "password": "Adkjfkd@123455"
   
 }
 
