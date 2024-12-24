@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
+import { AccountService } from '../../../core/services/account-service';
 
 @Component({
   selector: 'soc-register',
@@ -10,33 +10,32 @@ import { tap } from 'rxjs';
   imports: [
     CommonModule,
     FormsModule,
-    // ReactiveFormsModule
+    ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  constructor(private http: HttpClient){
-
-  }
   heading = "Please register";
-
-  data: any = {};
+  registerForm: FormGroup;
+  constructor(private accountService: AccountService, private fb: FormBuilder) {
+    this.registerForm = fb.group({
+      // name, email, password
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    })
+  }
 
   register() {
-    const url = 'http://localhost:5550/api/Accounts/Register'
-    // console.log("submitting form: ", this.data);
-    // TODO: validation check here.
-
-    this.http.post(url, this.data)
-    .pipe(
-      // rjxs
-      tap(x => console.log("api response: ", x))
-    ).subscribe({
-      next: (resp) => {
-        console.log(resp)
-      },
-      error: (x) => (x)
-    })
+    this.accountService.register(this.registerForm.value)
+      .pipe(
+        tap(x => console.log("api response: ", x))
+      ).subscribe({
+        next: (resp) => {
+          console.log(resp)
+        },
+        error: (x) => (x)
+      })
   }
 }
