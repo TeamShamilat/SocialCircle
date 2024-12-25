@@ -11,7 +11,7 @@ export class AccountService {
     url = 'http://localhost:5550/api/Accounts/Register'
 
     // Zohaib, create response model, remove any
-    // TODO: Huzaifa, create interface, remove any
+   
     register(registerModel: Iregister): Observable<any> {
         return this.http.post<any>(this.url, registerModel)
     }
