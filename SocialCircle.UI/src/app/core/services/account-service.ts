@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Iregister } from "../../Interface/iregister";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class AccountService {
 
     // Zohaib, create response model, remove any
     // TODO: Huzaifa, create interface, remove any
-    register(registerModel: any): Observable<any> {
+    register(registerModel: Iregister): Observable<any> {
         return this.http.post<any>(this.url, registerModel)
     }
 } 
