@@ -31,6 +31,13 @@ public class AccountsController : ControllerBase
     [HttpPost("Login")]
     public IActionResult Login([FromBody] LoginModel model)
     {
+        // TODO: add functionality here (Zohaib, Huzaifa)
+        /*
+         * 1. check existing user matching user name (return 404 if not found)
+         * 2. check password againt hashedpassword
+         *  a. matched -> create token, along with user info
+         *  b. not-matched -> return bad request (400) with (invalid username or password)
+         */
         return Ok(
             new
             {
@@ -44,10 +51,11 @@ public class AccountsController : ControllerBase
 
         // TODO: Login user
         return Accepted();
-    }
-    
-    
-    
+    } 
 }
 
-
+// TODO: Mohsin replace anonymous login with actual (LoginResponseModel) model.
+class LoginResponseModel
+{
+    // TODO: Add properties here
+}
