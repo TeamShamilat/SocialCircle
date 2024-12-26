@@ -12,7 +12,7 @@ export class AccountService {
 
     // Zohaib, create response model, remove any
    
-    register(registerModel: Iregister): Observable<any> {
-        return this.http.post<any>(this.url, registerModel)
+    register(registerModel: Iregister): Observable<Iregister[]> {
+        return this.http.post<Iregister[]>(this.url, registerModel)
     }
 } 

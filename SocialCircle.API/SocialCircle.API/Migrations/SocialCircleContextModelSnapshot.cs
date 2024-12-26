@@ -48,12 +48,45 @@ namespace SocialCircle.API.Migrations
                     b.ToTable("BookMarks");
                 });
 
-            modelBuilder.Entity("SocialCircle.API.Models.Friend", b =>
+            modelBuilder.Entity("SocialCircle.API.Models.Comment", b =>
                 {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("SocialCircle.API.Models.Friend", b =>
+                {
                     b.Property<int>("FriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendId"));
+
+                    b.Property<int>("FriendUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FriendshipDate")
@@ -62,9 +95,14 @@ namespace SocialCircle.API.Migrations
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
 
-                    b.HasKey("UserId", "FriendId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("FriendId");
+                    b.HasKey("FriendId");
+
+                    b.HasIndex("FriendUserId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Friends");
                 });
@@ -103,14 +141,8 @@ namespace SocialCircle.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
 
-                    b.Property<int>("CommentsCount")
+                    b.Property<int>("CommentCount")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
 
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
@@ -148,9 +180,6 @@ namespace SocialCircle.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -165,7 +194,7 @@ namespace SocialCircle.API.Migrations
                     b.HasOne("SocialCircle.API.Models.Post", "Post")
                         .WithMany("BookMarks")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SocialCircle.API.Models.User", "User")
@@ -179,11 +208,30 @@ namespace SocialCircle.API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SocialCircle.API.Models.Comment", b =>
+                {
+                    b.HasOne("SocialCircle.API.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialCircle.API.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SocialCircle.API.Models.Friend", b =>
                 {
                     b.HasOne("SocialCircle.API.Models.User", "FriendUser")
-                        .WithMany()
-                        .HasForeignKey("FriendId")
+                        .WithMany("FriendOf")
+                        .HasForeignKey("FriendUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -232,12 +280,18 @@ namespace SocialCircle.API.Migrations
                 {
                     b.Navigation("BookMarks");
 
+                    b.Navigation("Comments");
+
                     b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("SocialCircle.API.Models.User", b =>
                 {
                     b.Navigation("BookMarks");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("FriendOf");
 
                     b.Navigation("Friends");
 
