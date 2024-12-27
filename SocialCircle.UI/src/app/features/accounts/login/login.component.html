@@ -2,7 +2,7 @@
     <form [formGroup]="loginForm">
         <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal"> {{ heading | titlecase }} </h1>
- 
+        
         <div class="form-floating">
             <input type="text" formControlName="userName" name="userName" class="form-control" id="floatingInput" placeholder="Type here">
             <label for="floatingInput">userName</label>
@@ -12,8 +12,11 @@
             <label for="floatingPassword">Password</label>
         </div> 
         <button [disabled]="loginForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit" (click)="login()" > Login </button>
+        <button class="w-100 btn btn-lg mt-2 btn-primary-outline" (click)="navigateToRegister()" > Register </button>
     </form>
-
+    
+    <div *ngIf="isSubmitting" class="spinner-border text-primary text-center" role="status">
+        <!-- <span class="sr-only">Loading...</span> -->
+      </div>
     <!-- <div><pre> {{ loginForm.value | json }} </pre></div> -->
-
 </main>

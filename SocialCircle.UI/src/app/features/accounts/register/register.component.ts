@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { AccountService } from '../../../core/services/account-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'soc-register',
@@ -10,7 +11,8 @@ import { AccountService } from '../../../core/services/account-service';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

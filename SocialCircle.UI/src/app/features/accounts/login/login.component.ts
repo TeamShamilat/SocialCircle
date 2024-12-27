@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { AccountService } from '../../../core/services/account-service';
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'soc-login',
@@ -19,9 +18,13 @@ import { AccountService } from '../../../core/services/account-service';
 })
  
 export class LoginComponent {
+  isSubmitting = false;
   heading = "Login";
   loginForm: FormGroup;
-  constructor(private accountService: AccountService, private fb: FormBuilder) {
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+     private fb: FormBuilder) {
     this.loginForm = fb.group({
       userName: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -29,14 +32,26 @@ export class LoginComponent {
   }
 
   login() {
+    this.isSubmitting = true;
     this.accountService.login(this.loginForm.value)
       .pipe(
-        tap(x => console.log("api response: ", x))
+        // tap(x => console.log("api response: ", x))
       ).subscribe({
         next: (resp) => { 
-          console.log(resp);
+          this.isSubmitting = false;
+          if(resp.token){
+            // TODO: move to constants 'access_token' -> Mohsin
+            localStorage.setItem('access_token', resp.token);
+           this.router.navigate(['/home'])
+          }
         },
-        error: (x) => (x)
+        error: (x) => {
+          this.isSubmitting = false;
+        }
       })
-  }
+    }
+    
+    navigateToRegister() {
+     this.router.navigate(['/register'])
+    }
 }

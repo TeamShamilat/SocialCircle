@@ -16,9 +16,9 @@ Post {{host}}/api/Accounts/Login
 Content-type: application/json
 
 { 
-  "email": "string",
-  "password": "string"
+  "username": "ali",
+  "password": "Ali@123"
 } 
-
+ 
 
 

@@ -16,6 +16,7 @@
             <label for="floatingPassword">Password</label>
         </div> 
         <button [disabled]="registerForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit" (click)="register()" > Register </button>
+        <button class="w-100 btn btn-lg btn-primary-outline mt-2" [routerLink]="'/login'" > Login </button>
     </form>
 
     <!-- <div><pre> {{ registerForm.value | json }} </pre></div> -->

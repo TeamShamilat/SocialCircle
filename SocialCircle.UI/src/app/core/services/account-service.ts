@@ -15,6 +15,6 @@ export class AccountService {
     }
 
     login(model: LoginModel): Observable<LoginResponseModel> {
-        return this.http.post<LoginResponseModel>(`${API.baseUrl}/${API.accountEndPoints.register}`, model)
+        return this.http.post<LoginResponseModel>(`${API.baseUrl}/${API.accountEndPoints.login}`, model)
     }
 } 

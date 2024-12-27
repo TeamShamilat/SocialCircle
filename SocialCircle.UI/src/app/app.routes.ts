@@ -3,6 +3,8 @@ import { HomeComponent } from './features/users/home/home.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { RegisterComponent } from './features/accounts/register/register.component';
 import { LoginComponent } from './features/accounts/login/login.component';
+import { AuthGuard } from './core/gaurds/auth-guard';
+import { MainComponent } from './shared/layouts/main/main.component';
 
 export const routes: Routes = [
     {
@@ -11,8 +13,19 @@ export const routes: Routes = [
         redirectTo: 'home'
     },
     {
+        canActivate: [AuthGuard],
         path: 'home',
-        component: HomeComponent
+        component: MainComponent,
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                component: HomeComponent,
+                data: {
+                    title: 'User home page'
+                }
+            }
+        ]
     },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
