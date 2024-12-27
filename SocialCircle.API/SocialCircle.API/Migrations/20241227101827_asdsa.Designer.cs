@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialCircle.API.ApplicationContact;
 
@@ -11,9 +12,11 @@ using SocialCircle.API.ApplicationContact;
 namespace SocialCircle.API.Migrations
 {
     [DbContext(typeof(SocialCircleContext))]
-    partial class SocialCircleContextModelSnapshot : ModelSnapshot
+    [Migration("20241227101827_asdsa")]
+    partial class asdsa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

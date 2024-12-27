@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SocialCircle.API.Models;
 
 namespace SocialCircle.API.ApplicationContact
 {
-    public class SocialCircleContext : DbContext
+    public class SocialCircleContext : IdentityDbContext<ApplicationUser>
     {
         public SocialCircleContext(DbContextOptions<SocialCircleContext> options)
             : base(options)
@@ -16,6 +17,8 @@ namespace SocialCircle.API.ApplicationContact
         public DbSet<Like> Likes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BookMark> BookMarks { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
 
         // Configuring the relationships in OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
